@@ -20,7 +20,7 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 Thank you for using Light Novel Downloader!
 If you have any questions or encounter issues, please open an
-[issue](https://github.com/vincent-l-j/project-template/issues).
+[issue](https://github.com/vincent-l-j/light-novel-downloader/issues).
 
 ---
 
