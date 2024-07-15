@@ -7,7 +7,7 @@ allowing users to download their favourite light novels with ease.
 
 ## Installation
 
-1. **Clone this repo**
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/vincent-l-j/light-novel-downloader.git
