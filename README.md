@@ -11,8 +11,6 @@ allowing users to download their favourite light novels with ease.
 
    ```bash
    git clone https://github.com/vincent-l-j/light-novel-downloader.git
-   # OR with ssh
-   git clone git@github.com:vincent-l-j/light-novel-downloader.git
    cd light-novel-downloader
    ```
 
