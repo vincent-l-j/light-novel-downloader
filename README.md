@@ -16,7 +16,7 @@ allowing users to download their favourite light novels with ease.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License](LICENSE).
 
 Thank you for using Light Novel Downloader!
 If you have any questions or encounter issues, please open an
