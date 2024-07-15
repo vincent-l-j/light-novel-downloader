@@ -1,6 +1,9 @@
 # Light Novel Downloader
 
 Welcome to the Light Novel Downloader repository!
+This repository contains a script for downloading light novels.
+The script is designed to be user-friendly and flexible,
+allowing users to download their favorite light novels with ease.
 
 ## Getting Started
 
