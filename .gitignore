@@ -1,0 +1,4 @@
+# Ignore all files in the downloads directory
+downloads/*
+# Except the README.md file
+!downloads/README.md
