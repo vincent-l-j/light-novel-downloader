@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "light_novel_downloader"
+version = "0.0.1"
+authors = [
+  { name="Vincent Jadraque", email="vincent.jadraque@gmail.com" },
+]
+description = "This package contains a script for downloading light novels."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/vincent-l-j/light-novel-downloader/"
+Issues = "https://github.com/vincent-l-j/light-novel-downloader/issues"
