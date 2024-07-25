@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "light_novel_downloader"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Vincent Jadraque", email="vincent.jadraque@gmail.com" },
 ]
