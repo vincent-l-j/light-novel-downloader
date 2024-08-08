@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 import requests
 from src.light_novel_downloader.scraper import Scraper
+from src.light_novel_downloader import main
 
 
 class TestScraper(unittest.TestCase):
@@ -25,6 +26,10 @@ class TestScraper(unittest.TestCase):
         response = scraper.get_response("https://example.com/chapter1")
 
         self.assertIsNone(response)
+
+    def test_main(self):
+        exit_status = main()
+        self.assertIsNone(exit_status)
 
 
 if __name__ == "__main__":
