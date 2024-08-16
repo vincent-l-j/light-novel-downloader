@@ -2,3 +2,5 @@
 downloads/*
 # Except the README.md file
 !downloads/README.md
+# ignore virtual environment
+venv/
