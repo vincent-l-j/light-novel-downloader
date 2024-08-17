@@ -4,3 +4,8 @@ downloads/*
 !downloads/README.md
 # ignore virtual environment
 venv/
+# Distribution / packaging
+dist/
+*.egg-info/
+# test
+.tox/
