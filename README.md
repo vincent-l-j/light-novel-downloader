@@ -12,16 +12,15 @@ allowing users to download their favourite light novels with ease.
 
 ## Installation
 
-1. Clone the repository:
+1. Install using pip:
 
    ```bash
-   git clone https://github.com/vincent-l-j/light-novel-downloader.git
-   cd light-novel-downloader
-   ```
-
-2. Install the required dependencies:
-   ```bash
-   python -m pip install -r requirements.txt
+   venv_name=venv
+   python -m venv $venv_name
+   source $venv_name/bin/activate
+   python -m pip install light-novel-downloader
+   # for some reason you need to activate the virtual env again on zsh
+   source $venv_name/bin/activate
    ```
 
 ## Usage
@@ -29,7 +28,9 @@ allowing users to download their favourite light novels with ease.
 1. **Run the script**:
 
    ```bash
-   python main.py
+   light-novel-downloader download
+   # to read the help docs
+   light-novel-downloader --help
    ```
 
 2. The downloaded novels will be saved in the `downloads` directory.
