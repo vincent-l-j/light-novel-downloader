@@ -16,6 +16,10 @@ def test_help():
         result = runner.invoke(cli, ["--help"])
         assert result.exit_code == 0
         assert result.output.startswith("Usage: ")
+    with runner.isolated_filesystem():
+        result = runner.invoke(cli, ["-h"])
+        assert result.exit_code == 0
+        assert result.output.startswith("Usage: ")
 
 
 def test_download():

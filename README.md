@@ -31,6 +31,8 @@ allowing users to download their favourite light novels with ease.
    light-novel-downloader download
    # to read the help docs
    light-novel-downloader --help
+   # or
+   light-novel-downloader -h
    ```
 
 2. The downloaded novels will be saved in the `downloads` directory.

@@ -2,8 +2,10 @@ import click
 from .scraper import Scraper
 from pathlib import Path
 
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
-@click.group()
+
+@click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option()
 def cli():
     "A command line utility to download light novels."
