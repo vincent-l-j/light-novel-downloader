@@ -32,7 +32,7 @@ class NovelFullCrawler(Scraper):
 
     def download_chapter(self, chapter_url):
         response = self.get_response(chapter_url)
-        chapter_html = response.text
+        chapter_html = self.parse_chapter(response.text)
 
         return chapter_html
 
@@ -47,3 +47,21 @@ class NovelFullCrawler(Scraper):
         ]
 
         return urls
+
+    def parse_chapter(self, page_text):
+        soup = BeautifulSoup(page_text, features="html.parser")
+        # update prev and next page buttons
+        for a in soup.select("#next_chap[href], #prev_chap[href]"):
+            chapter_number = int(a["href"].split("/")[-1].split("-")[1])
+            a["href"] = f"chapter-{chapter_number:04d}.html"
+        # link to the index
+        for tag in soup.select(".chapter_jump"):
+            tag.clear()
+            tag.name = "a"
+            tag["href"] = "."
+            tag["class"] = "btn btn-success"
+            tag_content = soup.new_tag("span", class_="hidden-xs")
+            tag_content.string = "Index"
+            tag.append(tag_content)
+
+        return str(soup)
