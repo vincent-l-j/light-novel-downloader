@@ -47,3 +47,20 @@ class NovelFullCrawler(Scraper):
         ]
 
         return urls
+
+    def parse_chapter(page_text):
+        soup = BeautifulSoup(page_text)
+        # update prev and next page buttons
+        for a in soup.find_all(["#next_chap", "#prev_chap"], href=True):
+            a["href"] = a["href"].split("/")[-1] + ".html"
+        chapter_content = soup.select_one("#chapter-content")
+        for div in chapter_content.find_all(["iframe", "div"]):
+            div.decompose()
+        chapter_title = soup.find("span", {"class": "chapter-text"}).contents
+        chapter = {
+            "webpage": soup,
+            "contents": chapter_content,
+            "title": chapter_title[0],
+        }
+
+        return chapter
