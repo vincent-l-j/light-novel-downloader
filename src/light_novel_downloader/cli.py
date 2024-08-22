@@ -1,5 +1,5 @@
 import click
-from .scraper import Scraper
+from .novelfull import NovelFullCrawler
 from pathlib import Path
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
@@ -12,16 +12,34 @@ def cli():
 
 
 @cli.command(name="download")
-def download_chapter():
-    "Download chapter"
-    source = "https://novelfull.com"
-    path = "/reincarnation-of-the-strongest-sword-god/chapter-1-starting-over.html"
-    dir_downloads = "downloads"
-    scraper = Scraper()
-    r = scraper.get_response(source + path)
-    page_name = f"{dir_downloads}{path}"
-    dir_novel = "/".join(page_name.split("/")[:-1])
-    Path(dir_novel).mkdir(parents=True, exist_ok=True)
-    with open(page_name, "w") as f_out:
-        f_out.write(r.text)
-    click.echo(f"Downloaded chapter to {page_name}")
+@click.argument("novel_name", type=click.STRING)
+@click.option("--chapter", type=click.INT, default=1, help="chapter to download")
+def download_page(novel_name: str, chapter: int):
+    """
+    Download a specific chapter of a light novel.
+
+    Args:
+        novel_name (str): The name of the novel to download, in hyphenated form.
+                          For example: 'reincarnation-of-the-strongest-sword-god'.
+        chapter (int): The chapter number to download. Defaults to 1 if not provided.
+
+    This command will download the specified chapter from the given novel's page and
+    save it as an HTML file in the 'downloads/<novel_name>' directory.
+    Ensure the novel name is properly hyphenated (lowercase words separated by hyphens)
+    to match the URL formatting on the source site.
+
+    Example usage:
+        `download reincarnation-of-the-strongest-sword-god --chapter 10`
+
+    This will download chapter 10 of 'Reincarnation of the Strongest Sword God' to:
+        'downloads/reincarnation-of-the-strongest-sword-god/chapter-0010.html'
+    """
+    dir_novel_downloads = f"downloads/{novel_name.lower()}"
+    Path(dir_novel_downloads).mkdir(parents=True, exist_ok=True)
+    crawler = NovelFullCrawler(novel_name)
+    chapter_url = crawler.get_chapter_url(chapter)
+    download_filepath = f"{dir_novel_downloads}/chapter-{chapter:04d}.html"
+    chapter_html = crawler.download_chapter(chapter_url)
+    with open(download_filepath, "w") as f:
+        f.write(chapter_html)
+    click.echo(f"Downloaded chapter to {download_filepath}")
