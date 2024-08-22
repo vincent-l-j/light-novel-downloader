@@ -15,7 +15,8 @@ def cli():
 @click.argument("novel_name", type=click.STRING)
 @click.option("--start", type=click.INT, default=1, help="starting chapter to download")
 @click.option("--end", type=click.INT, default=1, help="ending chapter to download")
-def download_page(novel_name, start: int, end: int):
+@click.option("--skip-downloaded", type=click.BOOL, default=True)
+def download_page(novel_name, start: int, end: int, skip_downloaded: bool):
     """Download chapters from NOVEL.
 
     NOVEL is the name of the novel to be downloaded. Ensure it is hyphenated. e.g. reincarnation-of-the-strongest-sword-god
@@ -25,6 +26,8 @@ def download_page(novel_name, start: int, end: int):
     crawler = NovelFullCrawler(novel_name)
     for chapter_number, chapter_url in crawler.yield_chapter_urls(start, end):
         download_filepath = f"{dir_novel_downloads}/chapter-{chapter_number:04d}.html"
+        if Path(download_filepath).is_file() and skip_downloaded:
+            continue
         chapter_html = crawler.download_chapter(chapter_url)
         with open(download_filepath, "w") as f:
             f.write(chapter_html)
