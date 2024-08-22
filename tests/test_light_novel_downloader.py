@@ -30,8 +30,10 @@ def test_download():
             [
                 "download",
                 "reincarnation-of-the-strongest-sword-god",
-                "--chapter",
-                "15",
+                "--start",
+                "49",
+                "--end",
+                "51",
             ],
         )
         assert result.exit_code == 0

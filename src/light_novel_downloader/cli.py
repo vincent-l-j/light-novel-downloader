@@ -13,18 +13,19 @@ def cli():
 
 @cli.command(name="download")
 @click.argument("novel_name", type=click.STRING)
-@click.option("--chapter", type=click.INT, default=1, help="chapter to download")
-def download_page(novel_name: str, chapter: int):
-    """Download chapter from NOVEL.
+@click.option("--start", type=click.INT, default=1, help="starting chapter to download")
+@click.option("--end", type=click.INT, default=1, help="ending chapter to download")
+def download_page(novel_name, start: int, end: int):
+    """Download chapters from NOVEL.
 
     NOVEL is the name of the novel to be downloaded. Ensure it is hyphenated. e.g. reincarnation-of-the-strongest-sword-god
     """
     dir_novel_downloads = f"downloads/{novel_name.lower()}"
     Path(dir_novel_downloads).mkdir(parents=True, exist_ok=True)
     crawler = NovelFullCrawler(novel_name)
-    chapter_url = crawler.get_chapter_url(chapter)
-    download_filepath = f"{dir_novel_downloads}/chapter-{chapter:04d}.html"
-    chapter_html = crawler.download_chapter(chapter_url)
-    with open(download_filepath, "w") as f:
-        f.write(chapter_html)
-    click.echo(f"Downloaded chapter to {download_filepath}")
+    for chapter_number, chapter_url in crawler.yield_chapter_urls(start, end):
+        download_filepath = f"{dir_novel_downloads}/chapter-{chapter_number:04d}.html"
+        chapter_html = crawler.download_chapter(chapter_url)
+        with open(download_filepath, "w") as f:
+            f.write(chapter_html)
+        click.echo(f"Downloaded chapter to {download_filepath}")
