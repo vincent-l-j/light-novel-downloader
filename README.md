@@ -28,7 +28,9 @@ allowing users to download their favourite light novels with ease.
 1. **Run the script**:
 
    ```bash
-   light-novel-downloader download
+   light-novel-downloader download <hyphenated-novel-name> --chapter <chapter-number>
+   # e.g.
+   light-novel-downloader download reincarnation-of-the-strongest-sword-god --chapter 1
    # to read the help docs
    light-novel-downloader --help
    # or

@@ -25,6 +25,14 @@ def test_help():
 def test_download():
     runner = CliRunner()
     with runner.isolated_filesystem():
-        result = runner.invoke(cli, ["download"])
+        result = runner.invoke(
+            cli,
+            [
+                "download",
+                "reincarnation-of-the-strongest-sword-god",
+                "--chapter",
+                "15",
+            ],
+        )
         assert result.exit_code == 0
         assert result.output.startswith("Downloaded chapter")
