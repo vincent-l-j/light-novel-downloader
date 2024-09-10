@@ -8,18 +8,27 @@ class NovelFullCrawler(Scraper):
         self.novel_name = novel_name
         self.records_per_page = 50
 
-    def get_chapter_url(self, chapter: int):
-        """Return novel chapter url."""
-        page = int((chapter - 1) / self.records_per_page) + 1
-        urls = self._get_chapter_urls_from_page(
-            f"{self.source_url}/{self.novel_name}.html?page={page}"
-        )
-        for url in urls:
-            chapter_name = url.split("/")[-1]
-            chapter_number = int(chapter_name.split("-")[1].replace(".html", ""))
-            if chapter_number == chapter:
-                return url
-        raise ValueError(f"Chapter not found: {chapter}")
+    def yield_chapter_urls(self, start: int, end: int):
+        """Generate novel chapter numbers and corresponding urls.
+
+        start   -- start chapter.
+        end     -- end chapter.
+        """
+        page_start = int((start - 1) / self.records_per_page) + 1
+        page_end = int((end - 1) / self.records_per_page) + 1
+        for x in range(page_start, page_end + 1):
+            urls = self._get_chapter_urls_from_page(
+                f"{self.source_url}/{self.novel_name}.html?page={x}"
+            )
+            for url in urls:
+                chapter_name = url.split("/")[-1]
+                chapter_number = int(chapter_name.split("-")[1].replace(".html", ""))
+                if chapter_number < start:
+                    continue
+                # assume that the urls are ordered
+                if chapter_number > end:
+                    break
+                yield (chapter_number, url)
 
     def download_chapter(self, chapter_url):
         response = self.get_response(chapter_url)
